@@ -1,0 +1,48 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+int main(int argc,char **argv)
+{
+	int cnt;
+	scanf("%d",&cnt);
+	while(cnt--)
+	{
+		char str[105];
+		scanf("%s",str);
+		int state=0,i,Afront=0,Amiddle=0,Alater=0;
+		for(i=0;i<strlen(str);i++)
+		{
+			if(str[i]!='P'&&str[i]!='A'&&str[i]!='T')
+				break;
+			if(str[i]=='P')
+				if(state==0)
+					state=1;
+				else
+					break;
+			if(str[i]=='A')
+				if(state==1)
+					state=2;	
+				else if(state==2)
+					Amiddle++;
+				else if(state==0)
+					Afront++;
+				else
+					Alater++;
+			if(str[i]=='T')
+				if(state==2)
+					state=3;
+				else
+					break;
+		}
+		while(Amiddle)
+		{
+			Alater-=Afront;
+			Amiddle--;
+		}
+		if(i<strlen(str)||state!=3||Afront!=Alater)
+			printf("NO\n");
+		else
+			printf("YES\n");
+	}
+	return EXIT_SUCCESS;
+} 
