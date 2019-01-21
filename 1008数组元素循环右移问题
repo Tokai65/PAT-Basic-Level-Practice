@@ -1,0 +1,19 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main(int argc,char **argv)
+{
+	int num,rr;
+	scanf("%d%d",&num,&rr);
+	int array[105]={0};
+	for(int i=1;i<=num;i++)
+		scanf("%d",&array[i]);
+	int begin=num-rr%num+1;
+	
+	for(int i=1;i<=num;i++)
+	{
+		if(begin>num)
+			begin=1;
+		printf("%d%c",array[begin++],i==num?'\n':' ');
+	}
+	return EXIT_SUCCESS;
+}
