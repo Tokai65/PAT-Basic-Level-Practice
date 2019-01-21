@@ -1,0 +1,21 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main(int argc,char **argv)
+{
+	int num;
+	scanf("%d",&num);
+	int chundred=num/100;
+	while(chundred--)	putchar('B');
+	num%=100;
+	int cten=num/10;
+	while(cten--)	putchar('S');
+	num%=10;
+	int st=1;
+	while(num>=st)
+	{
+		putchar('0'+st);
+		st++;	
+	}
+	putchar('\n');
+	return EXIT_SUCCESS;
+}
