@@ -1,0 +1,31 @@
+#include<stdio.h>
+#include<string.h>
+char str[85];
+int book[85][2];
+int main(int argc,char** argv)
+{
+  	scanf("%[^\n]",str);
+  	int ind,ins=strlen(str),con=0,booknow=0;
+	for(ind=0;ind<ins;ind++)
+	{
+		if(str[ind]!=' '&&!con)
+		{
+			con=1;
+			book[booknow][0]=ind;
+		}
+		else if(str[ind]==' '&&con)
+		{
+			con=0;
+			book[booknow++][1]=ind;
+		}
+	}
+	if(con)
+		book[booknow++][1]=ins;
+	for(ind=booknow-1;ind>=0;ind--)
+	{
+		for(ins=book[ind][0];ins<book[ind][1];ins++)
+			printf("%c",str[ins]);
+		printf("%c",ind==0?'\n':' ');
+	}
+  	return 0;
+}
