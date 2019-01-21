@@ -1,0 +1,30 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+int getsp(int num)
+{
+	int sum=0;
+	int history=2;
+	for(int k=2;k<=num;k++)
+	{
+		int is=0;
+		for(int i=2;i<=(int)sqrt(k);i++)
+			if(k%i==0)
+			{
+				is=1;
+				break;
+			}
+		if(!is&&k-history==2)
+			sum++;
+		if(!is)
+			history=k;
+	}
+	return sum;
+}
+int main(int argc,char **argv)
+{
+	int num;
+	scanf("%d",&num);
+	printf("%d\n",getsp(num));
+	return EXIT_SUCCESS;
+}
