@@ -1,0 +1,20 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#define max(a,b) (a<b?b:a)
+#define min(a,b) (a>b?b:a)
+int main(int argc, char *argv[])
+{
+	int cnt;
+	scanf("%d",&cnt);
+	for(int i=1;i<=cnt;i++)
+	{
+		long long a,b,c;
+		scanf("%ld%ld%ld",&a,&b,&c);
+		if(a+b>c)
+			printf("Case #%d: true\n",i);
+		else
+			printf("Case #%d: false\n",i);
+	} 
+	return 0;
+}
