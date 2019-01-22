@@ -1,0 +1,21 @@
+#include<stdio.h>
+#include<stdlib.h>
+int getnum(int sp,int key)
+{
+	int sumn=0;
+	while(sp)
+	{
+		int sol=sp%10;
+		if(sol==key)
+			sumn=sumn*10+key;
+		sp/=10;
+	}
+	return sumn;
+}
+int main(int argc,char *argv[])
+{
+	int a,as,b,bs;
+	scanf("%d%d%d%d",&a,&as,&b,&bs);
+	printf("%d\n",getnum(a,as)+getnum(b,bs));
+	return EXIT_SUCCESS;
+}
