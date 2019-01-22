@@ -1,0 +1,57 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main(int argc,char **argv)
+{
+	int cnt;
+	scanf("%d",&cnt);
+	int A1=0,A2=0,A3=0,A5=0,A2p=-1,A2els=0;
+	double A4=0.0,A4p=0.0;
+	while(cnt--)
+	{
+		int num;
+		scanf("%d",&num);
+		if(num%5==0&&num%2==0)
+			A1+=num;
+		if(num%5==1)
+		{
+			A2p*=-1;
+			A2+=A2p*num;
+                        A2els=1;
+		}
+		if(num%5==2)
+		{
+			A3++;
+		}
+		if(num%5==3)
+		{
+			A4+=num;
+			A4p++;
+		}
+		if(num%5==4)
+		{
+			if(num>A5)
+				A5=num;
+		}
+	}
+	if(A1==0)
+		printf("N ");
+	else
+		printf("%d ",A1);
+	if(A2els==0)
+		printf("N ");
+	else
+		printf("%d ",A2);
+	if(A3==0)
+		printf("N ");
+	else
+		printf("%d ",A3);
+	if(A4p==0.0)
+		printf("N ");
+	else
+		printf("%.1lf ",A4/A4p);
+	if(A5==0)
+		printf("N\n");
+	else
+		printf("%d\n",A5);
+	return EXIT_SUCCESS;
+}
