@@ -1,0 +1,74 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct man
+{
+	int number,de,cai;
+	int rank;
+};
+struct man sp[100000];	
+int compare(const void *a,const void *b)
+{
+	const struct man *as=a;
+	const struct man *bs=b;
+	if(as->rank!=bs->rank)
+		return -(as->rank-bs->rank);
+	else if((as->de+as->cai)!=(bs->de+bs->cai))
+		return -(as->de+as->cai)+(bs->de+bs->cai);
+	else if(as->de!=bs->de)
+		return -(as->de-bs->de);
+	else
+		return as->number-bs->number;
+}
+int main(void)
+{
+	int N,baseline,additionline;
+	scanf("%d%d%d",&N,&baseline,&additionline);
+	int index=0,sum=0;
+	while(N--)
+	{
+		int a,b,c,d;
+		scanf("%d%d%d",&a,&b,&c);
+		if(b<baseline||c<baseline)
+			continue;
+		sum++;
+		if(b>=additionline&&c>=additionline)
+		{
+			d=4;
+			sp[index].number=a;
+			sp[index].de=b;
+			sp[index].cai=c;
+			sp[index++].rank=d;
+			continue;
+		}
+		if(b>=additionline&&c<additionline)
+		{
+			d=3;
+			sp[index].number=a;
+			sp[index].de=b;
+			sp[index].cai=c;
+			sp[index++].rank=d;
+			continue;
+		}
+		if(b>=c&&b<additionline&&c<additionline)
+		{
+			d=2;
+			sp[index].number=a;
+			sp[index].de=b;
+			sp[index].cai=c;
+			sp[index++].rank=d;
+			continue;
+		}
+		d=1;
+		sp[index].number=a;
+		sp[index].de=b;
+		sp[index].cai=c;
+		sp[index++].rank=d;
+	}
+	qsort(sp,index,sizeof(struct man),compare);
+	printf("%d\n",sum);
+	for(int i=0;i<index;i++)
+	{
+		printf("%d %d %d\n",sp[i].number,sp[i].de,sp[i].cai);
+	}
+	return EXIT_SUCCESS;
+}
