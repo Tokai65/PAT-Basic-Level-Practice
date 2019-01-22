@@ -1,0 +1,38 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+int ispre(int num)
+{
+	if(num==1)
+		return 0;
+	if(num==2)
+		return 1;
+	for(int i=2;i<=num/i;i++)
+	{
+		if(num%i==0)
+			return 0;
+	}
+	return 1;
+}
+int array[10002];
+int main(int argc,char **argv)
+{
+	int M,N,cnt=0;
+	scanf("%d%d",&M,&N);
+	int i,j;
+	for(i=2,j=1;j<=10000;i++)
+	{
+		if(ispre(i))
+			array[j++]=i;
+	}
+	for(i=M;i<=N;i++)
+	{
+		cnt++;
+		printf("%d",array[i]);
+		if(cnt%10==0||i==N)
+			printf("\n");
+		else
+			printf(" ");
+	}
+	return EXIT_SUCCESS;
+} 
