@@ -1,0 +1,23 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main(int argc,char **argv)
+{
+	int sp[1005][2];
+	int i=0;
+	while(scanf("%d%d",&sp[i][0],&sp[i][1])!=EOF)
+		i++;
+	int firstblood=0;
+	for(int j=0;j<=i-1;j++)
+		if(sp[j][0]*sp[j][1])
+		{
+			if(firstblood==0)
+				firstblood=1;
+			else
+				putchar(' ');
+			printf("%d %d",sp[j][0]*sp[j][1],sp[j][1]-1);
+		}
+	if(!firstblood)
+		printf("0 0");
+	putchar('\n');
+	return EXIT_SUCCESS;
+}
