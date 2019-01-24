@@ -1,0 +1,50 @@
+#include<stdio.h>
+#include<stdlib.h>
+//#define HOST
+typedef struct
+{
+	double si;
+	double sum,num;
+}moon;
+moon cakes[1005]={0};
+int compare(const void *a,const void *b)
+{
+	const moon *sa=(const moon*)a;
+	const moon *sb=(const moon*)b;
+	if(sb->si>sa->si)
+		return 1;
+	if(sb->si<sa->si)
+		return -1;
+	return 0; 
+}
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int n,need;
+	scanf("%d%d",&n,&need);
+	for(int i=0;i<n;i++)
+		scanf("%lf",&cakes[i].num);
+	for(int i=0;i<n;i++)
+		scanf("%lf",&cakes[i].sum);
+	for(int i=0;i<n;i++)
+		cakes[i].si=cakes[i].sum/cakes[i].num;
+	qsort(cakes,n,sizeof(moon),compare);
+	double ans=0.0;
+	for(int i=0;i<n;i++)
+	{
+		if(need<=cakes[i].num)
+		{
+			ans+=cakes[i].si*need;
+			break;
+		}
+		else
+		{
+			ans+=cakes[i].sum;
+			need-=cakes[i].num;
+		}
+	}
+	printf("%.2lf\n",ans);
+	return EXIT_SUCCESS;
+}
