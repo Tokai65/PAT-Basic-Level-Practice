@@ -1,0 +1,32 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+int main(int argc,char *argv[])
+{
+	char bignumber[1005];
+	char div[1005];
+	scanf("%s",bignumber);
+	int key;
+	scanf("%d",&key);
+	int mod=0,index=0,firstblood=0;
+	for(int i=0;i<strlen(bignumber);i++)
+	{
+		mod+=bignumber[i]-'0';
+		if(key>mod)
+		{
+			mod*=10;
+			if(firstblood)
+				div[index++]='0';
+			continue;
+		}
+		if(!firstblood)
+			firstblood=1;
+		div[index++]=mod/key+'0';
+		mod=mod%key*10;
+	}
+	if(index==0)
+	  div[index++]='0';
+	div[index]=0;
+	printf("%s %d\n",div,mod/10);
+	return EXIT_SUCCESS;
+}
