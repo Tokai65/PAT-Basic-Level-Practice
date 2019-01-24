@@ -1,0 +1,30 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main(int argc,char *argv[])
+{
+	int whole;
+	scanf("%d",&whole);
+	int a[5],firstblood=0;
+	while(whole!=6174&&whole!=0||firstblood==0)
+	{
+		if(!firstblood)
+			firstblood=1;
+		a[1]=whole%10;
+		a[2]=whole/10%10;
+		a[3]=whole/100%10;
+		a[4]=whole/1000%10;
+		for(int i=1;i<4;i++)
+			for(int j=1;j<=4-i;j++)
+				if(a[j]>a[j+1])
+				{
+					int temp=a[j];
+					a[j]=a[j+1];
+					a[j+1]=temp;
+				}
+		int big=a[1]+a[2]*10+a[3]*100+a[4]*1000;
+		int small=a[4]+a[3]*10+a[2]*100+a[1]*1000;
+		whole=big-small;
+		printf("%04d - %04d = %04d\n",big,small,whole);
+	}
+	return EXIT_SUCCESS;
+}
