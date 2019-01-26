@@ -1,0 +1,78 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+typedef struct member
+{
+	char name[10];
+	int year,month,day;
+}member;
+ 
+int compare(member x,member y)
+{
+	if(x.year==y.year)
+		if(x.month==y.month)
+			if(x.day==y.day)
+				return 0;
+			else
+				return x.day-y.day;
+		else
+			return x.month-y.month;
+	else
+		return x.year-y.year;
+}
+int check(member x)
+{
+	if(x.year>2014)
+		return 1;
+	if(x.year==2014)
+	{
+		if(x.month>9)
+			return 1;
+		if(x.month==9)
+			if(x.day>6)
+				return 1;
+	}
+	if(x.year<1814)
+		return 1;
+	if(x.year==1814)
+	{
+		if(x.month<9)
+			return 1;
+		if(x.month==9)
+			if(x.day<6)
+				return 1;
+	}
+	return 0;
+}
+int main(int argc, char *argv[])
+{
+	int cnt;
+	scanf("%d",&cnt);
+	member maxn,minn;
+	int sumcurrect=0,firstblood=0;
+	while(cnt--)
+	{
+		member now;
+		scanf("%s%d/%d/%d",now.name,&now.year,&now.month,&now.day);
+		if(check(now))
+			continue;
+		sumcurrect++;
+		if(!firstblood)
+		{
+			firstblood=1;
+			maxn=minn=now;
+		}
+		else
+		{
+			if(compare(now,maxn)>0)
+				maxn=now;
+			if(compare(minn,now)>0)
+				minn=now;	
+		}		
+	}
+	if(firstblood)
+		printf("%d %s %s\n",sumcurrect,minn.name,maxn.name);
+	else
+		printf("0\n");
+	return 0;
+}
