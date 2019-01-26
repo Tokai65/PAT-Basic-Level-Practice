@@ -1,0 +1,43 @@
+#include<stdio.h>
+int main(int argc,char** argv)
+{
+	int sum;
+	char ch;
+	scanf("%d %c",&sum,&ch);
+	int i=1,msum=1,fk=sum-msum;
+	while(fk>=(i+2)*2)
+	{
+		i+=2;
+		msum+=2*i;
+		fk=sum-msum;
+	}
+	int ins=i;
+	while(ins>1)
+	{
+		int ind=ins,inf=(i-ins)/2;
+		while(inf--)
+			putchar(' ');
+		while(ind--)
+			putchar(ch);
+		putchar('\n');
+		ins-=2;
+	}
+	int inf=(i-1)/2;
+	while(inf--)
+		putchar(' ');
+	putchar(ch);
+	putchar('\n');
+	ins=3;
+	while(ins<=i)
+	{
+		int ind=ins,inf=(i-ins)/2;
+		while(inf--)
+			putchar(' ');
+		while(ind--)
+			putchar(ch);
+		putchar('\n');
+		ins+=2;
+	}
+	printf("%d\n",fk);
+	return 0;
+}
