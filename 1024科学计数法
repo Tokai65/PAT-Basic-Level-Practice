@@ -1,0 +1,55 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+int main(int argc,char *argv[])
+{
+	char str[11000];
+	scanf("%s",str);
+	int ends=0;
+	for(int i=1;;i++)
+		if(str[i]=='E')
+		{
+			ends=i;
+			break;
+		}
+	int psss=0,endall=strlen(str)-1,copyends=ends+2;
+	while(endall>=copyends)
+	{
+		psss=psss*10+str[copyends]-'0';
+		copyends++;
+	}
+	if(str[ends+1]=='-')
+		psss=-psss;
+	if(str[0]=='-')
+		putchar(str[0]);
+	if(psss>0)
+	{
+		printf("%c",str[1]);
+		for(int i=0;i<ends-3||i<psss;i++)
+		{
+			if((i==psss)&&(i<ends-3))
+				putchar('.');
+			if(i<ends-3)
+				putchar(str[i+3]);
+			else
+				putchar('0');
+		}
+	}
+	else if(psss<0)
+	{
+		putchar('0');
+		putchar('.');
+		for(int i=1;i<abs(psss);i++)
+			putchar('0');
+		putchar(str[1]);
+		for(int i=0;i<ends-3;i++)
+			putchar(str[i+3]);
+	}
+	else
+	{
+		for(int i=1;i<ends;i++)
+			putchar(str[i]);
+	}
+	putchar('\n');
+	return EXIT_SUCCESS;
+}
