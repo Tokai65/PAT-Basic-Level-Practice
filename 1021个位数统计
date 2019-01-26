@@ -1,0 +1,15 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+int main(int argc,char *argv[])
+{
+	char bignumber[1005];
+	int book[10]={0};
+	scanf("%s",bignumber);
+	for(int i=0;i<strlen(bignumber);i++)
+		book[bignumber[i]-'0']++;
+	for(int i=0;i<10;i++)
+		if(book[i])
+			printf("%d:%d\n",i,book[i]);
+	return EXIT_SUCCESS;
+}
