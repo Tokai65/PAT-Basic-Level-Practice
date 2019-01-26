@@ -1,0 +1,29 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+int* tobasenumber(long long original,int base)
+{
+	static int array[30]={0},index=1;
+	if(!original)
+	  array[index++]=0;
+	while(original)
+	{
+		array[index++]=original%base;
+		original/=base;
+	}
+	array[0]=index-1;
+	return array;
+}
+int main(int argc,char *argv[])
+{
+	long long a,b;
+	scanf("%lld%lld",&a,&b);
+	long long sum=a+b;
+	int base;
+	scanf("%d",&base);
+	int *point=tobasenumber(sum,base);
+	for(int i=point[0];i>0;i--)
+		printf("%d",point[i]);
+	putchar('\n');
+	return EXIT_SUCCESS;
+}
