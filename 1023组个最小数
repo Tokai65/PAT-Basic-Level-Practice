@@ -1,0 +1,27 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+int main(int argc,char *argv[])
+{
+	int book[10]={0};
+	for(int i=0;i<10;i++)
+		scanf("%d",&book[i]);
+	int index=1;
+	while(book[index]==0)
+		index++;
+	book[index]--;
+	printf("%d",index);
+	index=0;
+	while(index<=9)
+	{
+		if(!book[index])
+		{
+			index++;
+			continue;	
+		}
+		printf("%d",index);
+		book[index]--;
+	}
+	putchar('\n');
+	return EXIT_SUCCESS;
+}
