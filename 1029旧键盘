@@ -1,0 +1,31 @@
+#include<stdio.h>
+#include<ctype.h>
+int book[128]={0};
+char stack[1000]={0};
+int main(int argc,char** agrv)
+{
+	char str1[1000],str2[1000];
+	scanf("%s%s",str1,str2);
+	int point1=0,point2=0,point3=0;
+	while(str1[point1])
+	{
+		if(str1[point1]==str2[point2])
+		{
+			point1++;
+			point2++;
+		}
+		else
+		{
+			int sp=toupper(str1[point1]);
+			if(book[sp]==0)
+			{
+				book[sp]=1;
+				stack[point3++]=sp;
+			}
+			point1++;
+		}
+	}
+	stack[point3]=0;
+	printf("%s\n",stack);
+	return 0;
+}
