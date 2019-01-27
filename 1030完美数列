@@ -1,0 +1,27 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define max(x,y) ((x>y)?(x):(y))
+long long array[100005];
+int compare(const void *a,const void *b)
+{
+	return (*(long long*)a-*(long long*)b);
+}
+int main(int argc,char **argv)
+{
+	int cnt,k;
+	scanf("%d%d",&cnt,&k);
+	for(int i=0;i<cnt;i++)
+	{
+		scanf("%lld",&array[i]);
+	}
+	qsort(array,cnt,sizeof(long long),compare);
+	int sp=0;
+	for(int i=0;i<cnt;i++)
+		for(int j=i+sp;j<cnt;j++)
+			if(array[i]*k<array[j])
+				break;
+			else
+				sp=max(sp,j-i+1);
+	printf("%d\n",sp);
+	return EXIT_SUCCESS;
+}
