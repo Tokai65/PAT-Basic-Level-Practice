@@ -1,0 +1,23 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main(int argc,char *argv[])
+{
+	int cnt;
+	char ch;
+	scanf("%d %c",&cnt,&ch);
+	for(int i=1;i<=cnt;i++)
+		putchar(ch);
+	putchar('\n');
+	for(int i=1;i<=(int)((cnt/2.0)+0.5)-2;i++)
+	{
+		putchar(ch);
+		for(int j=1;j<=cnt-2;j++)
+			putchar(' ');
+		putchar(ch);
+		putchar('\n');
+	}
+	for(int i=1;i<=cnt;i++)
+		putchar(ch);
+	putchar('\n');	
+	return EXIT_SUCCESS;
+}
