@@ -1,0 +1,70 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define mabs(a) (a<0?(-a):(a))
+long long gcd(long long m,long long n)
+{
+	if(m<0)
+		m=-m;
+	if(n<0)
+		n=-n;
+	return (m%n?gcd(n,m%n):n);
+}
+void printnum(long long a,long long b)
+{
+    if (b == 0)
+	{
+        printf("Inf");
+        return;
+    }
+    int sign=1;
+    if((a<0&&b>0)||(a>0&&b<0))
+    {
+    	sign=-1;
+	}
+	a=mabs(a);
+	b=mabs(b);
+    int temp=gcd(a, b);
+    a/=temp;
+    b/=temp;
+    if(sign==-1)
+		printf("(-");
+    if(b==1)
+        printf("%lld", a);
+	else if(a>b)
+        printf("%lld %lld/%lld",a/b,a%b,b);
+    else
+        printf("%ld/%ld", a, b);
+    if(sign==-1)
+		printf(")");
+	return;
+}
+int main(int argc,char **argv)
+{
+	long long a[2],b[2];
+	scanf("%lld/%lld %lld/%lld",&a[0],&a[1],&b[0],&b[1]);
+	printnum(a[0],a[1]);
+	printf(" + ");
+	printnum(b[0],b[1]);
+	printf(" = ");
+	printnum(a[0]*b[1]+a[1]*b[0],a[1]*b[1]);
+	putchar('\n');
+	printnum(a[0],a[1]);
+	printf(" - ");
+	printnum(b[0],b[1]);
+	printf(" = ");
+	printnum(a[0]*b[1]-a[1]*b[0],a[1]*b[1]);
+	putchar('\n');
+	printnum(a[0],a[1]);
+	printf(" * ");
+	printnum(b[0],b[1]);
+	printf(" = ");
+	printnum(a[0]*b[0],a[1]*b[1]);
+	putchar('\n');
+	printnum(a[0],a[1]);
+	printf(" / ");
+	printnum(b[0],b[1]);
+	printf(" = ");
+	printnum(a[0]*b[1],a[1]*b[0]);
+	putchar('\n');
+	return EXIT_SUCCESS;
+}
