@@ -1,0 +1,84 @@
+#include<stdio.h>
+#include<stdlib.h>
+//#define HOST
+void InsertionSort(int *arr,int begin,int len) 
+{
+	if(begin>=len)
+		begin=len-1;
+	int temp=arr[begin];
+	for(int i=begin-1;i>=0;i--)
+	{
+		if(arr[i]>temp)
+			arr[i+1]=arr[i],arr[i]=temp;
+		else
+		 	break;
+ 	}
+ 	return;
+}
+void MergeSort(int *arr,int begin,int len)
+{
+	if(begin>=len)
+		begin=len;
+	int start=0,end=0;
+	for(int i=0;i<len;i+=begin)
+	{
+		start=i;
+		end=(start+begin>len?len:start+begin);
+		for(int m=end-1;m>=start;m--)
+		{
+			int iloc=-1,max=arr[start],l=0;
+			for(l=start;l<=m;l++)
+				if(arr[l]>=max)
+					iloc=l,max=arr[l]; 
+			if(iloc>=0)
+				arr[iloc]=arr[l-1],arr[l-1]=max;  
+		}
+	}
+	return;
+}
+int match(int *diff1,int *diff2,int len)
+{
+    for(int i=0;i<len;i++)
+    	if(diff1[i]!=diff2[i])
+			return 0;
+    return 1;
+}
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+    int cnt,num1[105]={0},num2[105]={0},num1s[105]={0};
+    scanf("%d",&cnt);
+    for(int i=0;i<cnt;i++)
+		scanf("%d",&num1[i]);
+    for(int i=0;i<cnt;i++)
+		scanf("%d",&num2[i]);
+    for(int i=0;i<cnt;i++) 
+		num1s[i]=num1[i];
+    for(int i=1;i<cnt;i++)
+    {
+        InsertionSort(num1s,i,cnt);
+        if(match(num2,num1s,cnt))
+        {
+            printf("Insertion Sort\n"); 
+            InsertionSort(num1s,i+1,cnt);
+            for(int j=0;j<cnt;j++)
+				printf("%d%c",num1s[j],j==cnt-1?'\n':' ');
+            return EXIT_SUCCESS;
+        }
+    }
+    for(int i=1;i<=2*cnt;i*=2)
+    {
+        MergeSort(num1,i,cnt);
+        if(match(num2,num1,cnt))
+        {
+            printf("Merge Sort\n");
+            MergeSort(num1,2*i,cnt);
+            for(int j=0;j<cnt;j++)
+				printf("%d%c",num1[j],j==cnt-1?'\n':' ');
+            return 0;
+        }
+    }       
+    return EXIT_SUCCESS;
+}
