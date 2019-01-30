@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main(int argc,char *argv[])
+{
+	int *array=(int*)calloc(101,sizeof(int));
+	int cnt;
+	scanf("%d",&cnt);
+	while(cnt--)
+	{
+		int score;
+		scanf("%d",&score);
+		array[score]++;
+	}
+	scanf("%d",&cnt);
+	while(cnt--)
+	{
+		int sp;
+		scanf("%d",&sp);
+		printf("%d",array[sp]);
+		if(cnt)
+			printf(" ");
+	}
+	free(array);
+	return EXIT_SUCCESS;
+}
