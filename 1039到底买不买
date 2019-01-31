@@ -1,0 +1,36 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main(int argc,char *argv[])
+{
+	int *array=(int*)calloc(128,sizeof(int));
+	char sp;
+	int total=0;
+	while(sp=getchar(),sp!='\n')
+	{
+		array[sp]++;
+		total++;	
+	}
+	while(sp=getchar(),sp!='\n')
+	{
+		array[sp]--;
+		total--;	
+	}
+	int require=0,none=1,redundant=0;
+	for(int i=1;i<128;i++)
+	{
+		if(array[i]<0)
+		{
+			if(none)
+				none=0;
+			require+=-array[i];		
+		}
+		if(array[i]>0)
+			redundant+=array[i]; 
+	}
+	if(none)
+		printf("Yes %d\n",redundant);
+	else
+		printf("No %d\n",require);
+	free(array);
+	return EXIT_SUCCESS;
+}
