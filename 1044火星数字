@@ -1,0 +1,60 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<ctype.h>
+#include<string.h>
+char mars1[13][4]={"","tam","hel","maa","huh","tou","kes",\
+"hei","elo","syy","lok","mer","jou"};
+char mars2[13][5]={"tret","jan","feb","mar","apr","may","jun",\
+"jly","aug","sep","oct","nov","dec"};
+void tomars(int num)
+{
+	int sp1=num/13,sp2=num%13;
+	if(sp1)
+		printf("%s",mars1[sp1]);
+	if(sp1&&sp2)
+		putchar(' ');
+	if((!sp2&&!sp1)||sp2)
+		printf("%s",mars2[sp2]);
+	putchar('\n');
+	return;
+}
+void toearth(char *str)
+{
+	int sum=0;
+	char temp[4]="",temps[5]="";
+	sscanf(str,"%s%s",temp,temps);
+	int sp1,sp2;
+	for(int i=1;i<=12;i++)
+		if(!strcmp(mars1[i],temp))
+		{
+			sum+=i*13;
+			break;
+		}
+	for(int i=0;i<=12;i++)
+		if(!strcmp(mars2[i],temps)||!strcmp(mars2[i],temp))
+		{
+			sum+=i;
+			break;
+		}
+	printf("%d\n",sum);
+	return;
+}
+int main(int argc,char **argv)
+{
+	int cnt;
+	scanf("%d",&cnt);
+	while(cnt--)
+	{
+		char str[20]={0};
+		scanf("%*c%[^\n]",str);
+		if(isdigit(str[0]))
+		{
+			int num;
+			sscanf(str,"%d",&num);
+			tomars(num);
+		}
+		else
+			toearth(str);
+	}
+	return EXIT_SUCCESS;
+} 
