@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MOD 1000000007
+int main(int argc,char *argv[])
+{
+	int p=0,pa=0,pat=0;
+	char sp;
+	while(sp=getchar(),sp!='\n')
+	{
+		if(sp=='P')
+			p++;
+		if(sp=='A')
+		{
+			pa+=p;
+			pa%=MOD;
+		}
+		if(sp=='T')
+		{
+			pat+=pa;
+			pat%=MOD;
+		}
+	}
+	printf("%d\n",pat);
+	return EXIT_SUCCESS;
+}
