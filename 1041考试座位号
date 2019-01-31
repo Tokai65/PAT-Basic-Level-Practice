@@ -1,0 +1,31 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+typedef struct
+{
+	char ID[20];
+	int num;
+}student;
+int main(int argc,char **argv)
+{
+	int cnt;
+	scanf("%d",&cnt);
+	student *sp=(student*)calloc(cnt+1,sizeof(student));
+	while(cnt--)
+	{
+		student now;
+		int index;
+		scanf("%s %d %d",now.ID,&index,&now.num);
+		strcpy(sp[index].ID,now.ID);
+		sp[index].num=now.num;
+	}
+	scanf("%d",&cnt);
+	while(cnt--)
+	{
+		int index;
+		scanf("%d",&index);
+		printf("%s %d\n",sp[index].ID,sp[index].num);
+	}
+	free(sp);
+	return EXIT_SUCCESS;
+} 
