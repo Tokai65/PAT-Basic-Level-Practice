@@ -1,0 +1,17 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<ctype.h>
+int main(int argc,char **argv)
+{
+	int alpha[26]={0};
+	char ch;
+	while((ch=getchar())!=EOF)
+		if(isalpha(ch))
+			alpha[tolower(ch)-'a']++;
+	int max=0,sp;
+	for(int i=25;i>=0;i--)
+		if(alpha[i]>=max)
+			sp=i,max=alpha[i];
+	printf("%c %d\n",sp+'a',max);
+	return EXIT_SUCCESS;
+} 
