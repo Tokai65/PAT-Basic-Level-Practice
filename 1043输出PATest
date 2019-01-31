@@ -1,0 +1,34 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<ctype.h>
+int main(int argc,char **argv)
+{
+	int alpha[7]={0};
+	char ch;
+	int sum=0;
+	while((ch=getchar())!=EOF)
+	{
+		if(ch=='P')
+			alpha[1]++,sum++;
+		if(ch=='A')
+			alpha[2]++,sum++;
+		if(ch=='T')
+			alpha[3]++,sum++;
+		if(ch=='e')
+			alpha[4]++,sum++;
+		if(ch=='s')
+			alpha[5]++,sum++;
+		if(ch=='t')
+			alpha[6]++,sum++;
+	}
+	char sp[7]={0,'P','A','T','e','s','t'};
+	while(sum)
+		for(int i=1;i<=6;i++)
+			if(alpha[i]>0)
+			{
+				alpha[i]--;
+				sum--;
+				putchar(sp[i]);
+			}
+	return EXIT_SUCCESS;
+}
