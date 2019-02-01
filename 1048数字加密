@@ -1,0 +1,55 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+char gotch(int num)
+{
+	if(num>=0&&num<=9)
+		return num+'0';
+	else if(num==10)
+		return 'J';
+	else if(num==11)
+		return 'Q';
+	else if(num==12)
+		return 'K';
+	return -1;
+}
+int main(int argc,char **argv)
+{
+	char *ans=NULL,*other=NULL;
+	char num1[105],num2[105];
+	scanf("%s%s",num1,num2);
+	int i,sp=1;
+	int len1=strlen(num1)-1,len2=strlen(num2)-1;
+	if(len1>len2)
+		ans=num1;
+	else
+		ans=num2;
+	for(i=strlen(ans)-1;i>=0;i--)
+	{
+		char temp1,temp2;
+		if(len1<0)
+			temp1='0';
+		else
+			temp1=num1[len1--];
+		if(len2<0)
+			temp2='0';
+		else
+			temp2=num2[len2--];
+		if(sp)
+		{
+			ans[i]=gotch(((temp1-'0')+(temp2-'0'))%13);
+			sp=0;
+		}
+		else
+		{		
+			ans[i]=temp2-temp1;
+			if(ans[i]<0)
+				ans[i]+='0'+10;
+			else
+				ans[i]+='0';
+			sp=1;
+		}
+	}
+	printf("%s\n",ans);
+	return EXIT_SUCCESS;
+} 
