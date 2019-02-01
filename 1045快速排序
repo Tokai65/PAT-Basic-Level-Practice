@@ -1,0 +1,47 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main(int argc,char **argv)
+{
+	int cnt;
+	scanf("%d",&cnt);
+	int sp[100001][3],dp[100001];
+	for(int i=0;i<cnt;i++)
+		scanf("%d",&sp[i][0]);
+	int leftmax=0;
+	for(int i=0;i<cnt;i++)
+	{
+		sp[i][1]=leftmax;
+		if(sp[i][0]>leftmax)
+			leftmax=sp[i][0];
+	}
+	int rightmin=1<<30;
+	for(int i=cnt-1;i>=0;i--)
+	{
+		sp[i][2]=rightmin;
+		if(sp[i][0]<rightmin)
+			rightmin=sp[i][0];
+	}
+	int index=0,sum=0;
+	for(int i=0;i<cnt;i++)
+	{
+		int ok=1;
+		if(sp[i][1]>=sp[i][0])
+			ok=0;
+		if(sp[i][2]<=sp[i][0])
+			ok=0;
+		if(ok)
+		{
+			sum++;
+			dp[index++]=sp[i][0];
+		}
+	}
+	printf("%d\n",sum);
+	for(int i=0;i<index;i++)
+	{ 
+		printf("%d",dp[i]);
+		if(i!=index-1)
+			putchar(' '); 
+	}
+	putchar('\n');
+	return EXIT_SUCCESS;
+} 
