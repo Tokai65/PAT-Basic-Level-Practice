@@ -1,0 +1,19 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main(int argc,char **argv)
+{
+	int cnt;
+	scanf("%d",&cnt);
+	int suma=0,sumb=0;
+	while(cnt--)
+	{
+		int a,b,sa,sb;
+		scanf("%d%d%d%d",&a,&sa,&b,&sb);
+		if(a+b==sa&&a+b!=sb)
+			suma++;
+		if(a+b==sb&&a+b!=sa)
+			sumb++;
+	}
+	printf("%d %d\n",sumb,suma);
+	return EXIT_SUCCESS;
+}
