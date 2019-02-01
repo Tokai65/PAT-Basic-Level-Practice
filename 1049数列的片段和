@@ -1,0 +1,16 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main(int argc,char **argv)
+{
+	int cnt;
+	scanf("%d",&cnt);
+	int i;
+	double sum=0.0,temp;
+	for(i=1;i<=cnt;i++)
+	{
+		scanf("%lf",&temp);
+		sum+=(double)(cnt-i+1)*(double)(i)*temp;
+	}
+	printf("%.2f\n",sum);
+	return EXIT_SUCCESS;
+} 
