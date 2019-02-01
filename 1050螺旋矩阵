@@ -1,0 +1,44 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+int compare(const void *a,const void *b)
+{
+	return -*(const int*)a+*(const int*)b;
+}
+int main(int argc,char **argv)
+{
+	int cnt;
+	scanf("%d",&cnt);
+	int i,j,index=1;
+	int *array=(int*)calloc(cnt+1,sizeof(int));
+	for(i=1;i<=cnt;i++)
+		scanf("%d",&array[i]);
+	qsort(array+1,cnt,sizeof(int),compare); 
+	int n=(int)floor(sqrt(cnt)),m;
+	while(cnt%n)
+		n--;
+	m=cnt/n;
+	int **matrix=(int**)calloc(m+5,sizeof(int*));
+	for(i=0;i<=m+5;i++)
+		matrix[i]=(int*)calloc(n+5,sizeof(int));
+	i=j=1;
+	while(cnt>0)
+	{
+		while(matrix[i][j]==0&&j<=n)
+			matrix[i][j++]=array[index++],cnt--;
+		j--,i++;
+		while(matrix[i][j]==0&&i<=m)
+			matrix[i++][j]=array[index++],cnt--;
+		i--,j--;
+		while(matrix[i][j]==0&&j>=1)
+			matrix[i][j--]=array[index++],cnt--;
+		j++,i--;
+		while(matrix[i][j]==0&&i>=1)
+			matrix[i--][j]=array[index++],cnt--;
+		i++,j++;
+	}
+	for(i=1;i<=m;i++)
+		for(j=1;j<=n;j++)
+			printf("%d%c",matrix[i][j],j==n?'\n':' ');
+	return EXIT_SUCCESS;
+}
