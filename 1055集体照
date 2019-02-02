@@ -1,0 +1,63 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+typedef struct
+{
+	char name[10];
+	int high;
+}student;
+int compare(const void *a,const void *b)
+{
+	const student *sa=a;
+	const student *sb=b;
+	if(sa->high==sb->high)
+		return strcmp(sa->name,sb->name);
+	else
+		return sb->high-sa->high;
+}
+int main(int argc,char **argv)
+{
+	int cnt,row;
+	scanf("%d%d",&cnt,&row);
+	int div=cnt/row,column=cnt%div+div;
+	student class[10005];
+	for(int i=0;i<cnt;i++)
+		scanf("%s%d",class[i].name,&class[i].high);
+	qsort(class,cnt,sizeof(student),compare);
+	int temp[100005]={0},sum=1,index=0;
+	temp[column/2+1]=index++;
+	for(int i=1;;i++)
+	{
+		if(sum>=column)
+			break;
+		temp[column/2+1-i]=index++;
+		sum++;
+		if(sum>=column)
+			break;
+		temp[column/2+1+i]=index++;
+		sum++;
+	}
+	for(int i=1;i<=column;i++)
+		printf("%s%c",class[temp[i]].name,i==column?'\n':' ');
+	for(int i=row-1;i>=1;i--)
+	{
+		sum=1;
+		temp[div/2+1]=index++;
+		int offset=1; 
+		while(1)
+		{
+			if(sum>=div)
+				break;
+			temp[div/2+1-offset]=index++;
+			sum++;
+			if(sum>=div)
+				break;
+			temp[div/2+1+offset]=index++;
+			sum++;
+			offset++;
+		}
+		for(int j=1;j<=div;j++)
+			printf("%s%c",class[temp[j]].name,j==div?'\n':' ');
+	}
+	return EXIT_SUCCESS;
+} 
