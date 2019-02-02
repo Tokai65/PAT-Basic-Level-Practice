@@ -1,0 +1,50 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+int get(char out[][10])
+{
+	char temp;
+	int index=0,spdex=0;
+	while((temp=getchar())!='\n')
+	{
+		if(temp=='[')
+		{
+			index=0;
+			while((temp=getchar())!=']')
+				out[spdex][index++]=temp;
+			out[spdex][index]=0;
+			spdex++;
+		}
+	}
+	return spdex;
+}
+int main(int argc,char **argv)
+{
+	char shou[15][10]={0};
+	char yan[15][10]={0};
+	char kou[15][10]={0};
+	int shoumax=get(shou);
+	int yanmax=get(yan);
+	int koumax=get(kou);
+	int cnt; 
+	scanf("%d",&cnt);
+	while(cnt--)
+	{
+		int t1,t2,t3,t4,t5;
+		scanf("%d%d%d%d%d",&t1,&t2,&t3,&t4,&t5);
+		if((t1<1||t1>shoumax)||(t2<1||t2>yanmax)||(t3<1||t3>koumax)||(t4<1||t4>yanmax)||(t5<1||t5>shoumax))
+		{
+			printf("Are you kidding me? @\\/@\n");
+			continue;
+		}
+		printf("%s",shou[t1-1]);
+		putchar('(');
+		printf("%s",yan[t2-1]);
+		printf("%s",kou[t3-1]);
+		printf("%s",yan[t4-1]);
+		putchar(')');
+		printf("%s",shou[t5-1]);
+		putchar('\n');
+	}
+	return EXIT_SUCCESS;
+} 
