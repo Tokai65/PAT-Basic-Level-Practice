@@ -1,0 +1,30 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main(int argc,char **argv)
+{
+	int cnt,lday; 
+	double limit;
+	scanf("%d%lf%d",&cnt,&limit,&lday);
+	int maybe=0,able=0;
+	for(int j=0;j<cnt;j++)
+	{
+		int cnts,mb=0;
+		double input;
+		scanf("%d",&cnts);
+		for(int i=0;i<cnts;i++)
+		{
+			scanf("%lf",&input);
+			if(input<limit)
+				mb++;
+		}
+		if(mb>(cnts/2))
+		{
+			if(cnts>lday)
+				able++;
+			else
+			 	maybe++;
+		}
+	}
+	printf("%.1lf%% %.1lf%%\n",(double)maybe/cnt*100.0,(double)able/cnt*100.0);
+	return EXIT_SUCCESS;
+} 
