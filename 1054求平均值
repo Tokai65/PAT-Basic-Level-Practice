@@ -1,0 +1,51 @@
+#include<stdio.h>
+#include<ctype.h>
+#include<stdlib.h>
+#include<stdbool.h>
+#include<math.h>
+bool check(char *s)
+{
+	int i=0;
+	if(s[0]=='-')
+		i++;
+	for(;s[i]&&s[i]!='.';i++)
+		if(!isdigit(s[i]))
+			return false; 
+	if(s[i]=='.')
+		for(int j=i+1;s[j];j++)
+			if(!isdigit(s[j])||j-i>2)
+				return false;  
+	double temp=fabs(atof(s));
+	if(temp>1000.0)
+		return false;
+	return true;
+}
+int main(int argc,char **argv) 
+{
+	int cnt;
+	scanf("%d",&cnt);
+	int ins=0;
+	double sum=0.0;
+	while(cnt--)
+	{
+		char str[100]={0};
+		scanf("%s",str);
+		if(check(str))
+		{
+			ins++;
+			sum+=atof(str);
+		}
+		else
+			printf("ERROR: %s is not a legal number\n",str);
+	}
+	if(ins)
+	{
+		if(ins==1)
+			printf("The average of 1 number is %.2lf\n",sum);
+		else
+			printf("The average of %d numbers is %.2f\n",ins,sum/ins);
+	}
+	else
+		printf("The average of 0 numbers is Undefined\n");
+	return EXIT_SUCCESS; 
+}
