@@ -1,0 +1,20 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main(int argc,char **argv)
+{
+	int cnt; 
+	scanf("%d",&cnt);
+	int array[10]={0};
+	for(int i=0;i<cnt;i++)
+		scanf("%d",&array[i]);
+	int sum=0;
+	for(int i=0;i<cnt;i++)
+		for(int j=0;j<cnt;j++)
+		{
+			if(i==j)
+				continue;
+			sum+=array[i]*10+array[j];
+		}
+	printf("%d\n",sum);
+	return EXIT_SUCCESS;
+} 
