@@ -1,0 +1,50 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+#include<math.h>
+//#define HOST
+bool check(int num)
+{
+	int i;
+	for(i=2;i<=(int)sqrt(num);i++)
+		if(num%i==0)
+			break;
+	if(i>(int)sqrt(num))
+		return true;
+	return false;
+}
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int cnt,ID[10005]={0}; 
+	scanf("%d",&cnt);
+	for(int i=1;i<=cnt;i++)
+	{
+		int temp;
+		scanf("%d",&temp);
+		ID[temp]=i;	
+	}
+	scanf("%d",&cnt);
+	while(cnt--)
+	{
+		int temp;
+		scanf("%d",&temp);
+		if(!ID[temp])
+			printf("%04d: Are you kidding?\n",temp);
+		else if(ID[temp]==-1)
+			printf("%04d: Checked\n",temp);
+		else
+		{
+			if(ID[temp]==1)
+				printf("%04d: Mystery Award\n",temp);
+			else if(check(ID[temp]))
+				printf("%04d: Minion\n",temp);
+			else
+				printf("%04d: Chocolate\n",temp);
+			ID[temp]=-1;
+		}
+	}
+	return EXIT_SUCCESS;
+}
