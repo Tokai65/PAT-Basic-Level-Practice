@@ -1,0 +1,62 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+//#define HOST
+typedef struct
+{
+	int score;
+	int anssum;
+	int anscnt;
+	char ans[6];
+}subject;
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int cnt1,cnt2;
+	scanf("%d%d",&cnt1,&cnt2);
+	subject sp[105];
+	for(int i=0;i<cnt2;i++)
+	{
+		scanf("%d%d%d",&sp[i].score,&sp[i].anssum,&sp[i].anscnt);
+		for(int j=0;j<sp[i].anscnt;j++)
+			scanf("%*c%c",&sp[i].ans[j]);
+		sp[i].ans[sp[i].anscnt]=0;
+	}
+	int book[105]={0},bookmax=0;
+	while(cnt1--)
+	{
+		int sum=0;
+		for(int i=0;i<cnt2;i++)
+		{
+			while(getchar()!='(');
+			int xuan;
+			char xuanans[6]={0};
+			scanf("%d",&xuan);
+			for(int j=0;j<xuan;j++)
+				scanf("%*c%c",&xuanans[j]);
+			getchar();
+			if(xuan!=sp[i].anscnt||strcmp(xuanans,sp[i].ans))
+			{
+				book[i]++;
+				if(book[i]>bookmax)
+					bookmax=book[i];
+				continue;
+			}
+			sum+=sp[i].score;
+		}
+		printf("%d\n",sum);
+	}
+	if(!bookmax)
+		printf("Too simple\n");
+	else
+	{
+		printf("%d",bookmax);
+		for(int i=0;i<cnt2;i++)
+			if(book[i]==bookmax)
+				printf(" %d",i+1);
+		putchar('\n');
+	}
+	return EXIT_SUCCESS;
+} 
