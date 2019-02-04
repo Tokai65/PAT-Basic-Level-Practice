@@ -1,0 +1,29 @@
+#include<stdio.h>
+#include<stdlib.h>
+//#define HOST
+_Bool ans[105];
+int score[105]={0};
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int stnum,tinum;
+	scanf("%d%d",&stnum,&tinum);
+	for(int i=1;i<=tinum;i++)
+		scanf("%d",&score[i]);
+	for(int i=1;i<=tinum;i++)
+		scanf("%hd",&ans[i]);
+	while(stnum--)
+	{
+		int temp,sum=0;
+		for(int i=1;i<=tinum;i++)
+		{
+			scanf("%d",&temp);
+			if(temp==ans[i])
+				sum+=score[i];
+		}
+		printf("%d\n",sum);
+	}
+	return EXIT_SUCCESS;
+}
