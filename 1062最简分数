@@ -1,0 +1,37 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+#include<stdbool.h>
+//#define HOST
+int gcd(int m,int n)
+{
+	return (m%n?(gcd(n,m%n)):(n));
+}
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int zi1,zi2,mu1,mu2,aim;
+	scanf("%d/%d",&zi1,&mu1);
+	scanf("%d/%d",&zi2,&mu2);
+	scanf("%d",&aim);
+	double qzi1=(zi1*((double)aim/(double)mu1));
+	double qzi2=(zi2*((double)aim/(double)mu2));
+	if(qzi1>qzi2)
+	{double temp=qzi1;qzi1=qzi2;qzi2=temp;}
+	zi1=(int)floor(qzi1);
+	zi2=(int)ceil(qzi2);
+	bool ok=false;
+	for(int i=zi1+1;i<zi2;i++)
+	{
+		int temp=gcd(i,aim);
+		if(temp==1)
+			if(ok==false)
+				printf("%d/%d",i,aim),ok=true;
+			else
+				printf(" %d/%d",i,aim);
+	}
+	putchar('\n');
+	return EXIT_SUCCESS;
+}
