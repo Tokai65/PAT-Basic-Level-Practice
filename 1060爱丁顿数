@@ -1,0 +1,30 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+//#define HOST
+int compare(const void *a,const void *b)
+{
+	return *(const int*)b-*(const int*)a;
+}
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int cnt; 
+	scanf("%d",&cnt);
+	int array[100005];
+	for(int i=0;i<cnt;i++)
+		scanf("%d",&array[i]);
+	qsort(array,cnt,sizeof(int),compare);
+	int i;
+	for(i=0;i<cnt;i++)
+		if(array[i]<=i+1)
+		{
+			printf("%d\n",i);
+			break;
+		}
+	if(i==cnt)
+		printf("%d\n",i);
+	return EXIT_SUCCESS;
+}
