@@ -1,0 +1,44 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+//#define HOST
+int getsum(int num)
+{
+	int sum=0;
+	while(num)
+	{
+		sum+=num%10;
+		num/=10;
+	}
+	return sum;
+}
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int cnt,ind=0;
+	scanf("%d",&cnt);
+	bool sp[50]={false};
+	while(cnt--)
+	{
+		int temp;
+		scanf("%d",&temp);
+		temp=getsum(temp);
+		if(sp[temp]==false)
+		{
+			sp[temp]=true;
+			ind++;
+		}
+	}
+	printf("%d\n",ind);
+	bool ok=false;
+	for(int i=0;i<50;i++)
+		if(sp[i])
+			if(ok==false)
+				printf("%d",i),ok=true;
+			else
+				printf(" %d",i);
+	putchar('\n');
+	return EXIT_SUCCESS;
+} 
