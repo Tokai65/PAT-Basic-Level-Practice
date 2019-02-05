@@ -1,0 +1,54 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+//#define HOST
+int m,n,limit;
+int matrix[1005][1005]={0};
+bool check(int i,int j)
+{
+	const int move[8][2]={{-1,-1},{-1,0},{-1,1},{1,-1},{1,0},{1,1},{0,-1},{0,1}};
+	for(int k=0;k<8;k++)
+	{
+		int tx=move[k][0]+i;
+		int ty=move[k][1]+j;
+		if(ty<0||ty>=n||tx<0||tx>=m)
+			continue;
+		if(abs(matrix[tx][ty]-matrix[i][j])<=limit)
+			return false;
+	}
+	return true;
+}
+bool unique(int num,int x0,int y0)
+{
+	for(int i=0;i<m;i++)
+		for(int j=0;j<n;j++)
+		{
+			if(i==x0&&j==y0)
+				continue;
+			if(matrix[i][j]==num)
+				return false;
+		}
+	return true;
+}
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	scanf("%d%d%d",&n,&m,&limit);
+	for(int i=0;i<m;i++)
+		for(int j=0;j<n;j++)
+			scanf("%d",&matrix[i][j]);
+	int sum=0,spi,spj;
+	for(int i=0;i<m;i++)
+		for(int j=0;j<n;j++)
+			if(check(i,j)&&unique(matrix[i][j],i,j))
+				sum++,spi=i,spj=j;
+	if(sum==0)
+		printf("Not Exist\n");
+	else if(sum>1)
+		printf("Not Unique\n");
+	else
+		printf("(%d, %d): %d\n",spj+1,spi+1,matrix[spi][spj]);
+	return EXIT_SUCCESS;
+}
