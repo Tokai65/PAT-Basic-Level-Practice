@@ -1,0 +1,42 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+//#define HOST
+int couple[1000000]={0};
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int cnt,sum=0;
+	scanf("%d",&cnt);
+	while(cnt--)
+	{
+		int a,b;
+		scanf("%d%d",&a,&b);
+		couple[a]=b+1;
+		couple[b]=a+1;
+	}
+	scanf("%d",&cnt);
+	while(cnt--)
+	{
+		int temp;
+		scanf("%d",&temp);
+		if(couple[temp]>0)
+			couple[temp]=0;
+		else
+			couple[temp]=-1,sum++;
+	}
+	for(int i=0;i<=99999;i++)
+		if(couple[i]>0&&couple[couple[i]-1]==0)
+			couple[couple[i]-1]=-1,sum++;
+	bool ok=false;
+	printf("%d\n",sum);
+	for(int i=0;i<=99999;i++)
+		if(couple[i]==-1)
+			if(ok==false)
+				printf("%05d",i),ok=true;
+			else
+				printf(" %05d",i);
+	return EXIT_SUCCESS;
+}
