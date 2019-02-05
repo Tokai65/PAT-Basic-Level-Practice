@@ -1,0 +1,31 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+//#define HOST
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int cnt;
+	char ans[25]={0};
+	scanf("%s",ans);
+	scanf("%d",&cnt);
+	while(cnt)
+	{
+		char temp[250]={0};
+		scanf("%*c%[^\n]",temp);
+		if(temp[0]=='#'&&strlen(temp)==1)
+			break;
+		if(!strcmp(ans,temp))
+		{
+			printf("Welcome in\n");
+			break;
+		}
+		printf("Wrong password: %s\n",temp);
+		cnt--;
+	}
+	if(!cnt)
+		printf("Account locked\n");
+	return EXIT_SUCCESS;
+}
