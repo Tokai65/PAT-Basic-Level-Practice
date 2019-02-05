@@ -1,0 +1,38 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+#include<string.h>
+//#define HOST
+char queue[1005][25]={0};
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int cnt,jump,begin,sp=0;
+	scanf("%d%d%d",&cnt,&jump,&begin);
+	for(int i=1;i<=cnt;i++)
+	{
+		char temp[25]={0};
+		scanf("%s",temp);
+		if(i==begin)
+		{
+			bool go=false;
+			for(int j=0;j<sp;j++)
+				if(!strcmp(temp,queue[j]))
+				{
+					begin++;
+					go=true;
+					break;
+				}
+			if(go)
+				continue;
+			begin+=jump;
+			printf("%s\n",temp);
+			strcpy(queue[sp++],temp);
+		}
+	}
+	if(!sp)
+		printf("Keep going...\n");
+	return EXIT_SUCCESS;
+}
