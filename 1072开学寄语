@@ -1,0 +1,46 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+//#define HOST
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int cnt,items; 
+	scanf("%d%d",&cnt,&items);
+	bool item[10000]={false};
+	while(items--)
+	{
+		int temp;
+		scanf("%d",&temp);
+		item[temp]=true;
+	}
+	int stu=0,goods=0;
+	while(cnt--)
+	{
+		char name[10]={0};
+		int index,book[10]={0},z=0;
+		scanf("%s%d",name,&index);
+		while(index--)
+		{
+			int temp;
+			scanf("%d",&temp);
+			if(item[temp])
+			{
+				book[z++]=temp;
+				goods++;
+			}
+		}
+		if(z)
+		{
+			stu++;
+			printf("%s:",name);
+			for(int i=0;i<z;i++)
+				printf(" %04d",book[i]);
+			putchar('\n');
+		}
+	}
+	printf("%d %d\n",stu,goods);
+	return EXIT_SUCCESS;
+}
