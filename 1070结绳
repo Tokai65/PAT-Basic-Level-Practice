@@ -1,0 +1,24 @@
+#include<stdio.h>
+#include<stdlib.h>
+//#define HOST
+int compare(const void *a,const void *b)
+{
+	return *(const int*)a-*(const int*)b;
+}
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int cnt; 
+	scanf("%d",&cnt);
+	int array[10005]={0};
+	for(int i=1;i<=cnt;i++)
+		scanf("%d",&array[i]);
+	qsort(array+1,cnt,sizeof(int),compare);
+	double lenth=(double)array[1];
+	for(int i=2;i<=cnt;i++)
+		lenth=lenth/2.0+array[i]/2.0;
+	printf("%d\n",(int)lenth);
+	return EXIT_SUCCESS;
+}
