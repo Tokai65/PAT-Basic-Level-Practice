@@ -1,0 +1,37 @@
+#include<stdio.h>
+#include<stdlib.h>
+//#define HOST
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int all,cnt;
+	scanf("%d%d",&all,&cnt);
+	while(cnt--)
+	{
+		int a,b,sp,push;
+		scanf("%d%d%d%d",&a,&sp,&push,&b);
+		if(push>all)
+		{
+			printf("Not enough tokens.  Total = %d.\n",all);
+			continue;
+		}
+		if((!sp&&a>b)||(sp&&a<b))
+		{
+			all+=push;
+			printf("Win %d!  Total = %d.\n",push,all);
+		}
+		if((sp&&a>b)||(!sp&&a<b))
+		{
+			all-=push;
+			printf("Lose %d.  Total = %d.\n",push,all);
+		}
+		if(all<=0)
+		{
+			printf("Game Over.\n");
+			break;
+		}
+	}
+	return EXIT_SUCCESS;
+}
