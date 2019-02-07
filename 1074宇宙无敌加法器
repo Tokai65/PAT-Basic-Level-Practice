@@ -1,0 +1,52 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+//#define HOST
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	char biao[20]={0};
+	char biga[20]={0};
+	char bigb[20]={0};
+	char ans[50]={0};
+	scanf("%s%s%s",biao,biga,bigb);
+	int lenbiao=strlen(biao),lena=strlen(biga),lenb=strlen(bigb);
+	int index=0;
+	while(index<lena||index<lenb)
+	{
+		int a,b,c;
+		if(index>=lena)
+			a=0;
+		else
+			a=biga[lena-index-1]-'0';
+		if(index>=lenb)
+			b=0;
+		else
+			b=bigb[lenb-index-1]-'0';
+		if(biao[lenbiao-index-1]=='0')
+			c=10;
+		else
+			c=biao[lenbiao-index-1]-'0';
+		ans[index]+=a+b;
+		if(ans[index]>=c)
+		{
+			ans[index]-=c;
+			ans[index+1]++;
+		}
+		ans[index++]+='0';
+	}
+	if(ans[index])
+		ans[index]+='0';
+	else
+		index--;
+	while(ans[index]=='0')
+		index--;
+	for(int i=index;i>=0;i--)
+		putchar(ans[i]);
+	if(index<0)
+		putchar('0'); 
+	putchar('\n');
+	return EXIT_SUCCESS;
+}
