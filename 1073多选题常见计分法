@@ -1,0 +1,81 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<stdbool.h>
+#define Max(a,b) (a>b?(a):(b))
+//#define HOST
+typedef struct
+{
+	int score;
+	int anssum;
+	int anscnt;
+	bool ans[6];
+}subject;
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int cnt1,cnt2;
+	scanf("%d%d",&cnt1,&cnt2);
+	subject sp[105];
+	for(int i=0;i<cnt2;i++)
+	{
+		scanf("%d%d%d",&sp[i].score,&sp[i].anssum,&sp[i].anscnt);
+		for(int j=0;j<sp[i].anssum;j++)
+			sp[i].ans[j]=false;
+		for(int j=0;j<sp[i].anscnt;j++)
+		{
+			char temp;
+			scanf("%*c%c",&temp);
+			sp[i].ans[temp-'a']=true;
+		}
+	}
+	int book[105][6]={0},bookmax=0;
+	while(cnt1--)
+	{
+		double sum=0.0;
+		for(int i=0;i<cnt2;i++)
+		{
+			while(getchar()!='(');
+			int xuan;
+			char xuanans[6]={0};
+			bool zero=false;
+			scanf("%d",&xuan);
+			for(int j=0;j<sp[i].anssum;j++)
+				if(sp[i].ans[j]==true)
+					book[i][j]++;
+			for(int j=0;j<xuan;j++)
+			{
+				char temp;
+			 	scanf("%*c%c",&temp);
+			 	if(sp[i].ans[temp-'a']==true)
+			 		book[i][temp-'a']--;
+				else
+				{
+					zero=true;
+					book[i][temp-'a']++;
+				}
+			}
+			getchar();
+			if(xuan==sp[i].anscnt&&zero==false)
+				sum+=(double)sp[i].score;
+			else if(xuan!=sp[i].anscnt&&zero==false)
+				sum+=(double)sp[i].score/2.0;
+		}
+		printf("%.1lf\n",sum);
+	}
+	for(int i=0;i<cnt2;i++)
+		for(int j=0;j<6;j++)
+			bookmax=Max(bookmax,book[i][j]);
+	if(!bookmax)
+		printf("Too simple\n");
+	else
+	{
+		for(int i=0;i<cnt2;i++)
+			for(int j=0;j<6;j++)
+				if(book[i][j]==bookmax)
+					printf("%d %d-%c\n",bookmax,i+1,j+'a');
+	}
+	return EXIT_SUCCESS;
+} 
