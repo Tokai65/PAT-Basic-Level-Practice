@@ -1,0 +1,50 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+//#define HOST
+struct
+{
+	int data,next;
+}node[100005];
+int arr[100005][3]={0};
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int st,n,k,ip;
+	scanf("%d%d%d",&st,&n,&k);
+	for(int i=0;i<n;i++)
+	{
+		scanf("%d",&ip);
+		scanf("%d%d",&node[ip].data,&node[ip].next);
+	}
+	int point=st,index[3]={0};
+	while(point!=-1)
+	{
+		int data=node[point].data;
+		if(data<0)
+			arr[index[0]++][0]=point;
+		else if(data>=0&&data<=k)
+			arr[index[1]++][1]=point;
+		else
+			arr[index[2]++][2]=point;
+		point=node[point].next;
+	}
+	bool fb=true;
+	for(int i=0;i<3;i++)
+	{
+		for(int j=0;j<index[i];j++)
+		{
+			if(fb)
+			{
+				printf("%05d %d ",arr[j][i],node[arr[j][i]].data);
+				fb=false;
+			}
+			else
+				printf("%05d\n%05d %d ",arr[j][i],arr[j][i],node[arr[j][i]].data); 
+		}
+	}
+	printf("-1");
+	return EXIT_SUCCESS;
+}
