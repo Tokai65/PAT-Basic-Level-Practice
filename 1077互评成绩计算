@@ -1,0 +1,37 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+#define Max(a,b) (a<b?(b):(a))
+#define Min(a,b) (a<b?(a):(b))
+//#define HOST
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int cnt,maxs;
+	scanf("%d%d",&cnt,&maxs);
+	for(int i=1;i<=cnt;i++)
+	{
+		int teacher,max=0,min=1<<30,sum=0,div=cnt-3;
+		scanf("%d",&teacher);
+		for(int j=1;j<cnt;j++)
+		{
+			int temp;
+			scanf("%d",&temp);
+			if(temp<0||temp>maxs)
+			{
+				div--;
+				continue;
+			}
+			sum+=temp;
+			max=Max(max,temp);
+			min=Min(min,temp);
+		}
+		sum-=max;
+		sum-=min;
+		sum=(int)round(((double)sum/div+(double)teacher)/2.0);
+		printf("%d\n",sum);
+	}
+	return EXIT_SUCCESS;
+}
