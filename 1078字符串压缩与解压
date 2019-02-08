@@ -1,0 +1,72 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+#include<string.h>
+#include<ctype.h>
+//#define HOST
+void ya(char *str)
+{
+	int i=0,len=strlen(str),nowlen=0;
+	char sp=str[0];
+	while(i<len)
+	{
+		if(sp==str[i])
+		{
+			nowlen++;
+		}
+		else
+		{
+			if(nowlen>1)
+				printf("%d",nowlen);
+			putchar(sp);
+			nowlen=1;
+			sp=str[i];
+		}
+		i++;
+	}
+	if(nowlen>1)
+		printf("%d",nowlen);
+	putchar(sp);
+	return;
+}
+void jie(char *str)
+{
+	int i=0,len=strlen(str);
+	char sp,temp;
+	while(i<len)
+	{
+		sp=str[i];
+		if(isdigit(sp))
+		{
+			i++;
+			int num=sp-'0';
+			while(isdigit(str[i]))
+			{
+				num=num*10+str[i]-'0';
+				i++;
+			}
+			temp=str[i];
+			for(int k=1;k<=num;k++)
+				putchar(temp);
+		}
+		else
+			putchar(sp);
+		i++;
+	}
+	return;
+}
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	char ch,str[1005]={0};
+	ch=getchar();
+	scanf("%*c%[^\n]%*c",str);
+	if(ch=='C')
+		ya(str);
+	else
+		jie(str);
+	putchar('\n');
+	return EXIT_SUCCESS;
+}
