@@ -1,0 +1,105 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+#include<string.h>
+#include<math.h>
+//#define HOST
+typedef struct
+{
+	char name[25];
+	int sum,gp,gm,gf;
+}student;
+typedef struct
+{
+	char name[25];
+	int gnum;
+}studentcopy;
+student sp[10005]={0};
+studentcopy sp2[10005]={0},sp3[10005]={0};
+void getsp(int cnt1,int cnt2,int cnt3)
+{
+	int ks=0,ls=0;
+	for(int i=0;i<cnt1;i++)
+	{
+		while(strcmp(sp[i].name,sp2[ks].name)>0&&ks<cnt2)
+			ks++;
+		while(strcmp(sp[i].name,sp3[ls].name)>0&&ls<cnt3)
+			ls++;
+		sp[i].gm=-1;
+		if(strcmp(sp[i].name,sp2[ks].name)==0)
+			sp[i].gm=sp2[ks].gnum;
+		if(strcmp(sp[i].name,sp3[ls].name)==0)
+			sp[i].gf=sp3[ls].gnum;
+		if(sp[i].gm>sp[i].gf)
+			sp[i].sum=(int)round(0.4*sp[i].gm+0.6*sp[i].gf);
+		else
+			sp[i].sum=sp[i].gf;
+	}
+}
+int compare(const void *a,const void *b)
+{
+	const student *sa=(const student*)a;
+	const student *sb=(const student*)b;
+	if(sa->sum==sb->sum)
+		return strcmp(sa->name,sb->name);
+	return sb->sum-sa->sum;
+}
+int comforsp(const void *a,const void *b)
+{
+	const student *sa=(const student*)a;
+	const student *sb=(const student*)b;
+	return strcmp(sa->name,sb->name);
+}
+int comforcopy(const void *a,const void *b)
+{
+	const studentcopy *sa=(const studentcopy*)a;
+	const studentcopy *sb=(const studentcopy*)b;
+	return strcmp(sa->name,sb->name);
+}
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int cnt1,cnt2,cnt3;
+	scanf("%d%d%d",&cnt1,&cnt2,&cnt3);
+	char str[25]={0};
+	int index1=0,index2=0,index3=0;
+	while(cnt1--)
+	{
+		int temp;
+		scanf("%s%d",sp[index1].name,&temp);
+		if(temp>=200)
+			sp[index1++].gp=temp;
+	}
+	while(cnt2--)
+	{
+		scanf("%s%d",sp2[index2].name,&sp2[index2].gnum);
+		index2++;
+	}
+	while(cnt3--)
+	{
+		scanf("%s%d",sp3[index3].name,&sp3[index3].gnum);
+		index3++;
+	}
+	qsort(sp,index1,sizeof(student),comforsp);
+	qsort(sp2,index2,sizeof(studentcopy),comforcopy);
+	qsort(sp3,index3,sizeof(studentcopy),comforcopy);
+	getsp(index1,index2,index3);
+	qsort(sp,index1,sizeof(student),compare);
+	for(int i=0;i<index1;i++)
+	{
+		if(sp[i].sum>=60)
+		{
+			printf("%s",sp[i].name);
+			printf(" %d",sp[i].gp);
+			if(sp[i].gm!=-1)
+				printf(" %d",sp[i].gm);
+			else
+				printf(" -1");
+			printf(" %d",sp[i].gf);
+			printf(" %d\n",sp[i].sum);
+		}
+	}
+	return EXIT_SUCCESS;
+}
