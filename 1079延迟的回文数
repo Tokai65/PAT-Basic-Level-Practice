@@ -1,0 +1,77 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+#include<string.h>
+//#define HOST
+bool check(char *num)
+{
+	int left=0,right=strlen(num)-1;
+	while(left<right)
+	{
+		if(num[left]!=num[right])
+			return false;
+		left++;
+		right--;
+	}
+	return true;
+}
+char* transform(char *num)
+{
+	static char spnum[1200]={0};
+	int left=0,right=strlen(num)-1,index=0;
+	for(int i=right;i>=left;i--)
+		spnum[index++]=num[i];
+	return spnum;
+}
+char* Bigadd(char *num1,char *num2)
+{
+	int len=strlen(num1),i,j;
+	static char sumnum[1200]={0};
+	memset(sumnum,0,sizeof(sumnum));
+	for(i=len;i>0;i--)
+	{
+		sumnum[i]+=num1[i-1]+num2[i-1]-2*'0';
+		if(sumnum[i]>=10)
+		{
+			sumnum[i-1]++;
+			sumnum[i]-=10;
+		}
+	}
+	if(sumnum[0])
+		i=1;
+	for(j=0;j<=len;j++)
+		sumnum[j]+='0';
+	sumnum[j]=0;
+	//printf(">>>%s %d\n",sumnum,i);
+	if(!i)
+		return (sumnum+1);
+	return sumnum;
+}
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int cnt=10;
+	char num[1200]={0};
+	scanf("%s",num);
+	if(check(num))
+		printf("%s is a palindromic number.\n",num);
+	else
+	{	
+		while(cnt--)
+		{
+			char *temp1=transform(num);	
+			char *temp2=Bigadd(num,temp1);
+			printf("%s + %s = %s\n",num,temp1,temp2);
+			strcpy(num,temp2);
+			if(check(temp2))
+				break;
+		}
+		if(cnt>-1)
+			printf("%s is a palindromic number.\n",num);
+		else
+			printf("Not found in 10 iterations.\n");
+	}
+	return EXIT_SUCCESS;
+}
