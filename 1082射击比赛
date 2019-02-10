@@ -1,0 +1,31 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdint.h>
+#define HOST
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int cnt; 
+	scanf("%d",&cnt);
+	int bestID,worseID,bs=INT32_MAX,ws=0;
+	while(cnt--)
+	{
+		int temp,x,y;
+		scanf("%d%d%d",&temp,&x,&y);
+		x=x*x+y*y;
+		if(x>ws)
+		{
+			ws=x;
+			worseID=temp;
+		}
+		if(x<bs)
+		{
+			bs=x;
+			bestID=temp;
+		}
+	} 
+	printf("%04d %04d\n",bestID,worseID); 
+	return EXIT_SUCCESS;
+} 
