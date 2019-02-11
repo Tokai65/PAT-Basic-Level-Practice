@@ -1,0 +1,94 @@
+#include<stdio.h>
+#include<stdlib.h>
+//#define HOST
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int cnt,arr[10005]={0}; 
+	scanf("%d",&cnt);
+	for(int i=1;i<=cnt;i++)
+	{
+		int temp;
+		scanf("%d",&temp);
+		arr[abs(temp-i)]++;
+	}
+	for(int i=10000;i>=0;i--)
+		if(arr[i]>1)
+			printf("%d %d\n",i,arr[i]);
+	return EXIT_SUCCESS;
+}
+so so so so easy。
+
+1084外观数列
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+//#define HOST
+char* tran(char* arr,int len)
+{
+	static char q[100000]={0};
+	memset(q,0,sizeof(q));
+	int index=0,isp=0,sp=0,take=arr[0];
+	while(index<len)
+	{
+		if(take==arr[index])
+			sp++;
+		else
+		{
+			q[isp++]=take;
+			int left=isp,right=isp-1;
+			while(sp)
+			{
+				q[isp++]=sp%10+'0';
+				sp/=10;
+				right++;
+			}
+			while(left<right)
+			{
+				int temp=q[left];
+				q[left]=q[right];
+				q[right]=temp;
+				left++,right--;
+			}
+			take=arr[index];
+			sp=1;
+		}
+		index++;
+	}
+	q[isp++]=take;
+	int left=isp,right=isp-1;
+	while(sp)
+	{
+		q[isp++]=sp%10+'0';
+		sp/=10;
+		right++;		
+	}
+	while(left<right)
+	{
+		int temp=q[left];
+		q[left]=q[right];
+		q[right]=temp;
+		left++,right--;
+	}
+	return q;
+}
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int cnt,k;
+	char array[100000]={0};
+	scanf("%d%d",&cnt,&k);
+	array[0]=cnt+'0';
+	for(int i=1;i<k;i++)
+	{
+		char *point=tran(array,strlen(array)); 
+		strcpy(array,point); 
+		//printf("%d>>%s\n",i+1,array);
+	}
+	printf("%s\n",array); 
+	return EXIT_SUCCESS;
+}
