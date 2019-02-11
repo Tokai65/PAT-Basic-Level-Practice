@@ -1,0 +1,98 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<ctype.h>
+#include<math.h>
+//#define HOST
+typedef struct
+{
+	char isp;
+	double score;
+	char name[20];
+	int stnum,iscore;
+}unit;
+unit sp[100005]={0},ans[100005]={0};
+int namecompare(const void *a,const void *b)
+{
+	const unit *sa=(const unit*)a;
+	const unit *sb=(const unit*)b;
+	return strcmp(sa->name,sb->name);
+}
+int anscompare(const void *a,const void *b)
+{
+	const unit *sa=(const unit*)a;
+	const unit *sb=(const unit*)b;
+	if(sa->iscore==sb->iscore)
+	{
+		if(sa->stnum==sb->stnum)
+			return strcmp(sa->name,sb->name);
+		return sa->stnum-sb->stnum;
+	}
+	return sb->iscore-sa->iscore;
+}
+void ges(char mode,double *to,double *from)
+{
+	if(mode=='T')
+		*to+=*from*1.5;
+	if(mode=='A')
+		*to+=*from;
+	if(mode=='B')
+		*to+=*from/1.5;
+	return;
+}
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int cnt,index=0; 
+	scanf("%d",&cnt);
+	while(cnt--)
+	{
+		char ch,temp[10]={0};
+		while((ch=getchar())=='\n');
+		sp[index].isp=ch;
+		scanf("%*s");
+		scanf("%lf",&sp[index].score);
+		scanf("%s",temp);
+		for(int i=0;i<strlen(temp);i++)
+			temp[i]=tolower(temp[i]);
+		strcpy(sp[index].name,temp);
+		index++;
+	}
+	qsort(sp,index,sizeof(unit),namecompare);
+	int ind=0,jnd=0;
+	while(jnd<index)
+	{
+		strcpy(ans[ind].name,sp[jnd].name);
+		ans[ind].stnum=1;
+		ges(sp[jnd].isp,&ans[ind].score,&sp[jnd].score);
+		ind++,jnd++;
+		int cut=1;
+		while(jnd<index&&(!strcmp(ans[ind-cut].name,sp[jnd].name)))
+		{
+			ans[ind-cut].stnum++;
+			ges(sp[jnd].isp,&ans[ind-cut].score,&sp[jnd].score);
+			jnd++;
+			if(jnd>=index)
+				break;
+		}
+		ans[ind-1].iscore=(int)floor(ans[ind-1].score);
+	}
+	qsort(ans,ind,sizeof(unit),anscompare);
+	int qt=0,diff=-1,qr=1;
+	printf("%d\n",ind);
+	for(int i=0;i<ind;i++)
+	{
+		if(diff!=ans[i].iscore)
+		{
+			diff=ans[i].iscore;	
+			qt+=qr;
+			qr=1;
+		}
+		else
+			qr++;
+		printf("%d %s %d %d\n",qt,ans[i].name,ans[i].iscore,ans[i].stnum);
+	}
+	return EXIT_SUCCESS;
+}
