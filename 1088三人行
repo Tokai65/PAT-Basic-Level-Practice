@@ -1,0 +1,33 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+//#define HOST
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int my,x,y;
+	scanf("%d%d%d",&my,&x,&y);
+	for(int jia=99;jia>=10;jia--)
+	{
+		int yi=jia%10*10+jia/10;
+		double bing=(double)yi/(double)y;
+		if(fabs(bing-(fabs((double)jia-(double)yi))/x)<1e-6)
+		{
+			printf("%d",jia);
+			if(jia>my)printf(" Cong");
+			if(jia==my)printf(" Ping");
+			if(jia<my)printf(" Gai");
+			if(yi>my)printf(" Cong");
+			if(yi==my)printf(" Ping");
+			if(yi<my)printf(" Gai");
+			if(bing>my)printf(" Cong\n");
+			if(bing==my)printf(" Ping\n");
+			if(bing<my)printf(" Gai\n");
+			return EXIT_SUCCESS;	
+		}
+	}
+	printf("No Solution\n");
+	return EXIT_SUCCESS;
+}
