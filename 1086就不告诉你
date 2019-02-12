@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<stdlib.h>
+//#define HOST
+void print(int num)
+{
+	while(num%10==0)
+		num/=10;
+	while(num)
+	{
+		putchar(num%10+'0');
+		num/=10;
+	}
+	putchar('\n');
+	return;
+}
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int a,b;
+	scanf("%d%d",&a,&b);
+	print(a*b); 
+	return EXIT_SUCCESS;
+}
