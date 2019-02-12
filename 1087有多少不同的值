@@ -1,0 +1,24 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+//#define HOST
+int main(int argc,char **argv)
+{
+	#ifdef HOST
+		freopen("input.txt","r",stdin);
+	#endif
+	int cnt,sum=0;
+	int book[10400]={false};
+	scanf("%d",&cnt);
+	for(int i=1;i<=cnt;i++)
+	{
+		int index=i/2+i/3+i/5;
+		if(book[index]==false)
+		{
+			sum++;
+			book[index]=true;
+		}
+	}
+	printf("%d\n",sum); 
+	return EXIT_SUCCESS;
+}
