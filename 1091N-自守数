@@ -1,0 +1,44 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+#include<string.h>
+#include<math.h>
+bool check(long long a,int b)
+{
+	int ts=0;
+	if(b/10==0)
+		ts=1;
+	else if(b/100==0)
+		ts=2;
+	else
+		ts=3;
+	int isp=a%(int)pow(10,ts);
+	if(isp==b)
+		return true;
+	return false;
+}
+int main(int argc,char **argv)
+{
+	//freopen("test.txt","r",stdin);
+	int cnt;
+	scanf("%d",&cnt);
+	while(cnt--)
+	{
+		int temp;
+		bool jump=false;
+		scanf("%d",&temp);
+		int i,j;
+		for(i=1;i<10;i++)
+		{
+			long long sp=(long long)i*temp*temp;
+			if(check(sp,temp))
+			{
+				printf("%d %lld\n",i,sp);
+				break;
+			}
+		}
+		if(i==10)
+			printf("No\n");
+	}
+	return EXIT_SUCCESS;
+}
