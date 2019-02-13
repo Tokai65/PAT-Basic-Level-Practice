@@ -1,0 +1,43 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+int mat[1005]={0};
+int max[1005]={0};
+int maxmoon=0;
+int main(int argc, char *argv[])
+{
+	int cnt,city,sp=0;
+	scanf("%d%d",&cnt,&city);
+	int is,js,i;
+	for(is=1;is<=city;is++)
+	{
+		for(js=1;js<=cnt;js++)
+		{
+			if(is==1)
+				scanf("%d",&mat[js]);
+			else
+			{
+				int temp;
+				scanf("%d",&temp);
+				mat[js]+=temp;
+			}
+		}
+	}
+	for(js=1;js<=cnt;js++)
+	{
+		if(mat[js]>maxmoon)
+		{
+			maxmoon=mat[js];
+			sp=0;
+			max[sp++]=js;
+		}
+		else if(mat[js]==maxmoon)
+		{
+			max[sp++]=js;
+		}
+	}
+	printf("%d\n",maxmoon);
+	for(i=0;i<sp;i++)
+		printf("%d%c",max[i],i==sp-1?'\n':' ');
+	return 0;
+}
