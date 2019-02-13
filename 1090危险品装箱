@@ -1,0 +1,39 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+int sp[100000][105]={0};
+int main(int argc,char **argv)
+{
+	int cnt1,cnt2;
+	scanf("%d%d",&cnt1,&cnt2);
+	while(cnt1--)
+	{
+		int a,b;
+		scanf("%d%d",&a,&b);
+		sp[a][sp[a][0]+1]=b;
+		sp[a][0]++;
+	}
+	while(cnt2--)
+	{
+		bool book[100000]={false};
+		int array[10001]={0};
+		int cnt,pass=0;
+		scanf("%d",&cnt);
+		int num=0;
+		while(cnt--)
+		{
+			scanf("%d",&array[num]);
+			for(int index=1;index<=sp[array[num]][0];index++)
+				book[sp[array[num]][index]]=true;
+			num++;
+		}
+		for(int i=0;i<num;i++)
+			if(book[array[i]])
+				pass=1;
+		if(pass)
+			printf("No\n");
+		else
+			printf("Yes\n");
+	}
+	return EXIT_SUCCESS;
+}
