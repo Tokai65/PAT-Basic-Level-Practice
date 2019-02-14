@@ -1,0 +1,52 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+#include<string.h>
+char str1[1000005]={0};
+short int sp[128]={0};
+char str2[1000005]={0};
+int main(int argc, char *argv[])
+{
+	//freopen("test.txt","r",stdin);
+	scanf("%[^\n]%*c",str1);
+	scanf("%[^\n]%*c",str2);
+	int i;
+	for(i=0;i<strlen(str1);i++)
+	{
+		int temp=str1[i];
+		if(sp[temp]==0)
+			sp[temp]=1;
+		else if(sp[temp]==1)
+			sp[temp]=2;
+	}
+	for(i=0;i<strlen(str2);i++)
+	{
+		int temp=str2[i];
+		if(sp[temp]==0)
+			sp[temp]=1;
+		else if(sp[temp]==1)
+			sp[temp]=2;
+	}
+	for(i=0;i<strlen(str1);i++)
+	{
+		int temp=str1[i];
+		if(sp[temp]!=10)
+		{
+			putchar(str1[i]);
+			if(sp[temp]==2)
+				sp[temp]=10;
+		}
+	}
+	for(i=0;i<strlen(str2);i++)
+	{
+		int temp=str2[i];
+		if(sp[temp]!=10)
+		{
+			putchar(str2[i]);
+			if(sp[temp]==2)
+				sp[temp]=10;
+		}
+	}
+	putchar('\n');
+	return 0;
+}
