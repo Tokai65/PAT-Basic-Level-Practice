@@ -1,0 +1,56 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+#include<string.h>
+#include<math.h>
+int  check(int num)
+{
+	int i;
+	if(num<2)
+		return false;
+	for(i=2;i<=(int)sqrt(num);i++)
+	{
+		if(num%i==0)
+			return false;
+	}
+	return true;
+}
+int getff(int num)
+{
+	int i=0;
+	while(num)
+	{
+		num/=10;
+		i++;
+	}
+	return i;
+}
+int main(int argc,char **argv)
+{
+	//freopen("test.txt","r",stdin);
+	int len,cnt;
+	scanf("%d%d",&len,&cnt);
+	char number[1005]={0};
+	scanf("%s",number);
+	int i,j;
+	for(i=0;i<=len-cnt;i++)
+	{
+		int temp=0;;
+		for(j=0;j<cnt;j++)
+		{
+			temp*=10;
+			temp+=number[i+j]-'0';
+		}
+		if(check(temp))
+		{
+			int k;
+			for(k=1;k<=cnt-getff(temp);k++)
+				printf("0");
+			printf("%d\n",temp);
+			break;
+		}
+	}
+	if(i==len-cnt+1)
+		printf("404\n");
+	return EXIT_SUCCESS;
+}
